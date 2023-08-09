@@ -6,6 +6,11 @@ const app = express();
 const port = 3000;
 
 const route = require('./routes');
+const db = require('./config/db');
+
+// Connect to Db
+db.connect();
+
 // Apply Middleware
 app.use(
     express.urlencoded({
@@ -28,14 +33,13 @@ app.engine(
                 extname: 'hbs',
      }),
 );
-
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
 // Route init
 route(app);
 
-//
+// Connect to port
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`);
 });
